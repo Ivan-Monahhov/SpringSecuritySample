@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<a href="/hello">Test</a>
+<h1>Login</h1>
+<form name='f' action="/authentication/login" method='POST'>
+    <table>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <tr>
+            <td>User:</td>
+            <td><input type='text' name='username' value=''></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type='password' name='password' /></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Send Request" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
