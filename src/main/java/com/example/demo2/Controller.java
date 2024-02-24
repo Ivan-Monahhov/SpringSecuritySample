@@ -22,8 +22,4 @@ public class Controller {
    // public String dName() {
     //    return "process.html";
    // }
-    @RequestMapping(method = RequestMethod.GET, value = "/hello")
-    public String eName() {
-        return "hello.html";
-    }
 }
