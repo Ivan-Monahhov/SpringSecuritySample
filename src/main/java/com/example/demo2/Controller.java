@@ -18,4 +18,8 @@ public class Controller {
     public String cName() {
         return "yay.html";
     }
+    @RequestMapping(method = RequestMethod.POST, value = "/yay")
+    public String c2Name() {
+        return "yay.html";
+    }
 }

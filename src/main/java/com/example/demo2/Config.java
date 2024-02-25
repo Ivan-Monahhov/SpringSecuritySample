@@ -24,6 +24,7 @@ public class Config {
         }).formLogin(formLogin -> formLogin.loginPage("/authentication/login")
                 .failureUrl("/authentication/fail")
                 .defaultSuccessUrl("/yay")
+                .successForwardUrl("/yay")
                 .loginProcessingUrl("/authentication/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
