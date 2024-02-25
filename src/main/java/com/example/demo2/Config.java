@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 @Configuration
 @EnableWebSecurity
@@ -17,20 +16,17 @@ public class Config {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/*").hasRole("USER");
             auth.requestMatchers("/authentication/*").permitAll();
         }).formLogin(formLogin -> formLogin.loginPage("/authentication/login")
                 .failureUrl("/authentication/fail")
-                .defaultSuccessUrl("/yay")
-                .successForwardUrl("/yay")
-                .loginProcessingUrl("/authentication/login")
+                .defaultSuccessUrl("/yay") //this link is where it will go after successful login if we were not redirected to login page
+                .successForwardUrl("/yay") // this link overrides redirect to page from where redirect to login occured, this endpoint must support POST
+                .loginProcessingUrl("/authentication/login") // login form post url endpoint otherwise it is /login
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .permitAll()
-        ).requestCache((cache) -> cache
-                .requestCache(requestCache)
         );
         return http.build();
     }
