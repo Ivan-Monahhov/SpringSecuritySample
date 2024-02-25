@@ -18,8 +18,4 @@ public class Controller {
     public String cName() {
         return "yay.html";
     }
-    //@RequestMapping(method = RequestMethod.GET, value = "/authentication/process")
-   // public String dName() {
-    //    return "process.html";
-   // }
 }

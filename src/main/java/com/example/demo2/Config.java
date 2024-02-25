@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 @Configuration
 @EnableWebSecurity
@@ -16,16 +17,19 @@ public class Config {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/*").hasRole("USER");
             auth.requestMatchers("/authentication/*").permitAll();
         }).formLogin(formLogin -> formLogin.loginPage("/authentication/login")
                 .failureUrl("/authentication/fail")
-                .successForwardUrl("/yay")
+                .defaultSuccessUrl("/yay")
                 .loginProcessingUrl("/authentication/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .permitAll()
+        ).requestCache((cache) -> cache
+                .requestCache(requestCache)
         );
         return http.build();
     }
